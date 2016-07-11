@@ -15,7 +15,7 @@ namespace Bot_Application1
 
             string url = $"http://finance.yahoo.com/d/quotes.csv?s={symbol}&f=sl1";
             string csv;
-            using (WebClient client = new WebClient())
+            using (System.Net.WebClient client = new System.Net.WebClient())
             {
                 csv = await client.DownloadStringTaskAsync(url).ConfigureAwait(false);
             }
