@@ -24,7 +24,7 @@ namespace Bot_Application1
                 ConnectorClient connector = new ConnectorClient(new Uri(activity.ServiceUrl));
                 // calculate something for us to return
                 // int length = (activity.Text ?? string.Empty).Length;
-                LuisParser luisAnswer = await LuisParser.ParseUserInput(activity.Text);
+                LUISParser luisAnswer = await LUISTypeParser.ParseUserInput(activity.Text);
                 Console.WriteLine(luisAnswer);
                 string strStock = await Twitter.GetTweets(activity.Text);
                 // return our reply to the user

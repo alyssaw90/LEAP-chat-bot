@@ -8,9 +8,9 @@ using System.Web;
 
 namespace Bot_Application1
 {
-    public class LuisParser
+    public class LUISTypeParser
     {
-        public static async Task<LuisParser> ParseUserInput(string strInput)
+        public static async Task<LUISParser> ParseUserInput(string strInput)
         {
             string strRet = string.Empty;
             string strEscaped = Uri.EscapeDataString(strInput);
@@ -23,7 +23,7 @@ namespace Bot_Application1
                 if (msg.IsSuccessStatusCode)
                 {
                     var jsonResponse = await msg.Content.ReadAsStringAsync();
-                    var _Data = JsonConvert.DeserializeObject<LuisParser>(jsonResponse);
+                    var _Data = JsonConvert.DeserializeObject<LUISParser>(jsonResponse);
                     return _Data;
                 }
             }
@@ -31,7 +31,7 @@ namespace Bot_Application1
         }
     }
 
-    public class Rootobject
+    public class LUISParser
     {
         public string query { get; set; }
         public Intent[] intents { get; set; }
