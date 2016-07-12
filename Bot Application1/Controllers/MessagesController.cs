@@ -24,11 +24,16 @@ namespace Bot_Application1
                 ConnectorClient connector = new ConnectorClient(new Uri(activity.ServiceUrl));
                 // calculate something for us to return
                 // int length = (activity.Text ?? string.Empty).Length;
+               
                 LUISParser luisAnswer = await LUISTypeParser.ParseUserInput(activity.Text);
-                Console.WriteLine(luisAnswer);
-                string strStock = await Twitter.GetTweets(activity.Text);
+                string answer = luisAnswer.entities[0].entity;
+
+                //Console.WriteLine(answer);
+
+                //below already works, leave it alone.
+                string twitterResponse = await Twitter.GetTweets(answer);
                 // return our reply to the user
-                Activity reply = activity.CreateReply($"You asked about {activity.Text}, and the most recent Twitter post about that is: {strStock}");
+                Activity reply = activity.CreateReply($"You asked about {activity.Text}, and the most recent Twitter post about that is: {twitterResponse}");
                 await connector.Conversations.ReplyToActivityAsync(reply);
             }
             else
