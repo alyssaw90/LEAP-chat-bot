@@ -23,26 +23,33 @@ namespace Bot_Application1
 {
     public class Twitter
     {
-        public static async Task<double?> GetStockPriceAsync(string symbol)
+        public static async Task<string> GetStockPriceAsync(string symbol)
         {
             //TWITTER API CODE
-            Auth.SetUserCredentials("CONSUMER_KEY", "CONSUMER_SECRET", "ACCESS_TOKEN", "ACCESS_TOKEN_SECRET");
-
+            Auth.SetUserCredentials(TwitterKeys.CONSUMER_KEY, TwitterKeys.CONSUMER_SECRET, TwitterKeys.ACCESS_TOKEN, TwitterKeys.ACCESS_SECRET_TOKEN);
             TweetinviEvents.QueryBeforeExecute += (sender, args) =>
             {
                 Console.WriteLine(args.QueryURL);
             };
-
+        
             var authenticatedUser = User.GetAuthenticatedUser();
 
-            var searchParameters = new SearchTweetsParameters("tweetinvi")
+            if (string.IsNullOrWhiteSpace(symbol))
+                return null;
+
+            var searchParameters = new SearchTweetsParameters(symbol)
             {
-                MaximumNumberOfResults = 10
+                MaximumNumberOfResults = 2
             };
 
-            var tweets = Search.SearchTweets(searchParameters);
+            IEnumerable<ITweet> tweets = await SearchAsync.SearchTweets(searchParameters);
+            ITweet a = tweets.ToArray<ITweet>()[0];
+            Console.WriteLine(tweets);
+            return a.FullText;
+            
 
             //CODE FROM EXAMPLE
+            /*
             if (string.IsNullOrWhiteSpace(symbol))
                 return null;
 
@@ -60,6 +67,7 @@ namespace Bot_Application1
                 return result;
 
             return null;
+            */
         }
     }
 }
