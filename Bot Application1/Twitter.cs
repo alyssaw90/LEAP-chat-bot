@@ -23,7 +23,7 @@ namespace Bot_Application1
 {
     public class Twitter
     {
-        public static async Task<string> GetStockPriceAsync(string symbol)
+        public static async Task<string> GetTweets(string symbol)
         {
             //TWITTER API CODE
             Auth.SetUserCredentials(TwitterKeys.CONSUMER_KEY, TwitterKeys.CONSUMER_SECRET, TwitterKeys.ACCESS_TOKEN, TwitterKeys.ACCESS_SECRET_TOKEN);

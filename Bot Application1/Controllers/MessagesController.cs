@@ -25,10 +25,10 @@ namespace Bot_Application1
                 // calculate something for us to return
                 // int length = (activity.Text ?? string.Empty).Length;
                 LuisParser luisAnswer = await LuisParser.ParseUserInput(activity.Text);
-                //Console.WriteLine(luisAnswer);
-                string strStock = await Twitter.GetStockPriceAsync(activity.Text);
+                Console.WriteLine(luisAnswer);
+                string strStock = await Twitter.GetTweets(activity.Text);
                 // return our reply to the user
-                Activity reply = activity.CreateReply($"You sent {activity.Text} which is {strStock} right now");
+                Activity reply = activity.CreateReply($"You asked about {activity.Text}, and the most recent Twitter post about that is: {strStock}");
                 await connector.Conversations.ReplyToActivityAsync(reply);
             }
             else
